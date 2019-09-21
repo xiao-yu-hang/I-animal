@@ -13,7 +13,7 @@ body{
     min-width:1000px;
   }
   /*一级容器定宽居中*/
-  body>.container{
+  .container{
     width:1000px;
     min-width:1000px;
     margin:0 auto;

@@ -36,7 +36,7 @@
                 <a>热门：第一次养泰迪 好多不懂</a>
               </div>
             </div>
-             <div class="ba-info">
+            <div class="ba-info">
               <!-- 讨论区信息栏 -->
                 <a class="ba-msg">
                   <img style="width:105px;height:105px;" class="ba-icon" src="../../public/img/cat.jpg">
@@ -51,7 +51,7 @@
                 <a>热门：</a>
               </div>
             </div>
-             <div class="ba-info">
+            <div class="ba-info">
               <!-- 讨论区信息栏 -->
                 <a class="ba-msg">
                   <img style="width:105px;height:105px;" class="ba-icon" src="../../public/img/cangshu.jpg">
@@ -66,7 +66,7 @@
                 <a>热门：</a>
               </div>
             </div>
-             <div class="ba-info">
+            <div class="ba-info">
               <!-- 讨论区信息栏 -->
                 <a class="ba-msg">
                   <img style="width:105px;height:105px;" class="ba-icon" src="../../public/img/bird.jpg">
@@ -137,6 +137,7 @@
     background:#0aa1ed;
     opacity:0.6;
     color:#fff;
+    cursor: pointer;
   }
   .right{
     float:left;
@@ -203,4 +204,5 @@
     cursor:pointer;
     margin-left:10px;
   }
+  
 </style>

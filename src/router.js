@@ -6,11 +6,6 @@ import Login from './views/Login.vue'
 <<<<<<< HEAD
 import Registe from './views/Registe .vue'
 import forum from './views/forum.vue'
-=======
-import Tourist from './views/Tourist.vue'
-import Registe from './views/Registe.vue'
-
->>>>>>> ae1a489bb0ded0180151d47f80417201483b81c4
 Vue.use(Router)
 export default new Router({
     routes: [

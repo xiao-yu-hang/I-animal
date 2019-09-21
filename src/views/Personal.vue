@@ -30,6 +30,20 @@
         </div>
       </div>
     </div>
+    <fieldset class="messages">
+      <legend>留言评论</legend>
+      <div class="message">
+        <div class="info">
+          <img class="nickPic" src="@/assets/logo.png">
+          <div class="nickName">留言者昵称</div>
+          <div>留言</div>
+        </div>
+        <div>
+          <button class="btn">回复</button>
+          <button class="btn">删除</button>
+        </div>
+      </div>
+    </fieldset>
   </div>
 </template>
 <script>
@@ -60,6 +74,7 @@ export default {
     margin: 10px;
   }
   .nickPic{
+    box-sizing: border-box;
     width: 50px;
     height: 50px;
     border: 1px solid black;
@@ -68,7 +83,7 @@ export default {
   .detail{
     width: 600px;
   }
-  .album{
+  .album,.messages{
     box-sizing: border-box;
     text-align: left;
     width: 600px;
@@ -137,5 +152,13 @@ export default {
   .btn{
     height: 20px;
     border: 1px solid #000;
+  }
+  .message{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .message .info{
+    justify-content: flex-start;
   }
 </style>

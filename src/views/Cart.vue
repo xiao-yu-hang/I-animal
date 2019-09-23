@@ -3,126 +3,177 @@
     <div class="cart">
       <div>
         <h1>购物车</h1>
-        <hr>
+        <hr />
       </div>
       <div>
         <p class="counts">
+          <el-checkbox @change="checkAll" v-model="checked">全选</el-checkbox>
           <span>
             已选
-            <span class="count">
-              {{count}}
-            </span>
+            <span class="count">{{count}}</span>
             件商品
           </span>
           <span>
             合计(不含运费)：
-            <span class="count">
-              {{price}}
-            </span>
+            <span class="count">{{total}}</span>
             元
           </span>
         </p>
-        <hr>
+        <hr />
       </div>
-      <div class="lists">
+      <div @change="check" class="lists">
         <div v-for="(good,i) of goods" :key="i" class="list">
+          <el-checkbox v-model="good.checked"></el-checkbox>
           <div class="info">
-            <img class="thumbnail" :src="good.img">
+            <img class="thumbnail" :src="good.img" />
             <span>{{good.desc}}</span>
+            <span>单价：{{good.price}}</span>
+            <span>小计：{{good.price*good.count}}</span>
           </div>
-          <div class="option">
-            <el-input-number v-model="good.count" @change="`goodCount`" :min="1" :max="10" label="商品计数"></el-input-number>
+          <div class="option" @click="del">
+            <el-input-number
+              v-model="good.count"
+              @change="`goodCount`"
+              :min="1"
+              :max="10"
+              label="商品计数"
+            ></el-input-number>
+            <el-button type="danger" icon="el-icon-delete"></el-button>
           </div>
         </div>
       </div>
       <div class="cart-option">
-        <el-button class="del" type="danger" icon="el-icon-delete">清空</el-button>
-        <el-button class="buy" type="success" icon="el-icon-goods">购买</el-button>
+        <el-button @click="dels" class="del" type="danger" icon="el-icon-delete">清空</el-button>
+        <el-button @click="buy" class="buy" type="success" icon="el-icon-goods">购买</el-button>
       </div>
     </div>
   </div>
 </template>
 <script>
-import { log } from 'util'
 export default {
   data() {
     return {
-      count:0,
-      price:0,
-      goods:[
+      checked: false,
+      goods: [
         {
-        img:"@/assets/logo.png",
-        desc:"描述1",
-        count:1
+          checked: true,
+          img: "@/assets/logo.png",
+          desc: "描述1",
+          price: 5000,
+          count: 1
         },
         {
-        img:"@/assets/logo.png",
-        desc:"描述2",
-        count:2
-        },
-      ],
-    }
+          checked: false,
+          img: "@/assets/logo.png",
+          desc: "描述2",
+          price: 8000,
+          count: 2
+        }
+      ]
+    };
   },
   methods: {
-    goodCount(value){
-      console.log(value);
+    checkAll(value){
+      for(var good of this.goods){
+        good.checked=value
+      }
+    },
+    check(e){
+      console.log(e);
+    },
+    del() {},
+    dels() {},
+    buy() {
+      console.log(this.goods);
     }
   },
+  computed: {
+    count() {
+      var i = 0;
+      for (var good of this.goods) {
+        good.checked ? i++ : "";
+      }
+      return i;
+    },
+    total() {
+      var total=0
+      for (var good of this.goods) {
+        if (good.checked) {
+          total+=good.price*good.count
+        }
+      }
+      return total
+    }
+  }
 };
 </script>
 <style scoped>
-.btn{
+.btn {
   border: none;
 }
-.container{
+.container {
   display: flex;
   justify-content: center;
 }
-.cart{
+.cart {
   display: flex;
   flex-flow: column;
   align-items: stretch;
-  width: 600px;height: 600px;
+  width: 600px;
+  height: 600px;
   border: 1px solid #000;
 }
-.counts{
+.counts {
   display: flex;
   justify-content: space-around;
 }
-.count{
+.count {
   color: #f00;
 }
-.lists{
+.lists {
   display: flex;
   flex-flow: column;
   align-items: center;
 }
-.list,.info,.option{
+.list,
+.info,
+.option {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.lists{
+.lists {
   padding: 10px;
 }
-.list{
+.list {
   width: 100%;
+  justify-content: flex-start;
+}
+.info {
   margin: 10px;
 }
-.thumbnail{
-  width: 50px;height: 50px;
+.info span{
+  margin-left: 10px;
 }
-.cart-option{
-  flex-grow: 1;
+.option,
+.cart-option {
+  flex: 1;
   display: flex;
-  flex-flow: column;
   justify-content: flex-end;
 }
-.del{
+.thumbnail {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+.cart-option {
+  flex-flow: column;
+}
+.del {
   width: 100%;
 }
-.buy{
+.buy {
   width: 100%;
-  margin: 0!important;
+  margin: 0 !important;
 }
 </style>

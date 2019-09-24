@@ -21,16 +21,16 @@
         </p>
         <hr />
       </div>
-      <div @change="check" class="lists">
+      <div class="lists">
         <div v-for="(good,i) of goods" :key="i" class="list">
-          <el-checkbox v-model="good.checked"></el-checkbox>
+          <el-checkbox @change="check" v-model="good.checked"></el-checkbox>
           <div class="info">
             <img class="thumbnail" :src="good.img" />
             <span>{{good.desc}}</span>
             <span>单价：{{good.price}}</span>
             <span>小计：{{good.price*good.count}}</span>
           </div>
-          <div class="option" @click="del">
+          <div class="option">
             <el-input-number
               v-model="good.count"
               @change="`goodCount`"
@@ -38,13 +38,13 @@
               :max="10"
               label="商品计数"
             ></el-input-number>
-            <el-button type="danger" icon="el-icon-delete"></el-button>
+            <el-button @click="del(i)" type="danger" icon="el-icon-delete"></el-button>
           </div>
         </div>
       </div>
       <div class="cart-option">
-        <el-button @click="dels" class="del" type="danger" icon="el-icon-delete">清空</el-button>
-        <el-button @click="buy" class="buy" type="success" icon="el-icon-goods">购买</el-button>
+        <el-button @click="dels" class="del" type="danger" icon="el-icon-delete">删除选中商品</el-button>
+        <el-button @click="buy" class="buy" type="success" icon="el-icon-goods">购买选中商品</el-button>
       </div>
     </div>
   </div>
@@ -56,6 +56,7 @@ export default {
       checked: false,
       goods: [
         {
+          id:1,
           checked: true,
           img: "@/assets/logo.png",
           desc: "描述1",
@@ -63,6 +64,7 @@ export default {
           count: 1
         },
         {
+          id:2,
           checked: false,
           img: "@/assets/logo.png",
           desc: "描述2",
@@ -73,18 +75,41 @@ export default {
     };
   },
   methods: {
-    checkAll(value){
-      for(var good of this.goods){
-        good.checked=value
+    checkAll(value) {
+      for (var good of this.goods) {
+        good.checked = value;
       }
     },
-    check(e){
-      console.log(e);
+    check() {
+      for (var good of this.goods) {
+        if (!good.checked) {
+          this.checked = false;
+          return;
+        }
+      }
+      this.checked = true;
     },
-    del() {},
-    dels() {},
+    del(i) {
+      console.log(i);
+      this.goods.splice(i, 1);
+    },
+    dels() {
+      var new_goods=[]
+      for (var good of this.goods) {
+        if (!good.checked) {
+          new_goods.push(good)
+        }
+      }
+      this.goods=new_goods
+    },
     buy() {
-      console.log(this.goods);
+      var buy_goods=[]
+      for (var good of this.goods) {
+        if (good.checked) {
+          buy_goods.push(good.id)
+        }
+      }
+      console.log(buy_goods);
     }
   },
   computed: {
@@ -96,13 +121,13 @@ export default {
       return i;
     },
     total() {
-      var total=0
+      var total = 0;
       for (var good of this.goods) {
         if (good.checked) {
-          total+=good.price*good.count
+          total += good.price * good.count;
         }
       }
-      return total
+      return total;
     }
   }
 };
@@ -152,7 +177,7 @@ export default {
 .info {
   margin: 10px;
 }
-.info span{
+.info span {
   margin-left: 10px;
 }
 .option,

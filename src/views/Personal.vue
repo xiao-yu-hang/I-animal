@@ -14,20 +14,15 @@
       </div>
     </fieldset>
     <div class="post">
-      <div class="timeline">
-        <div class="y">
-          <div class="circle"></div>
-          <hr class="line-y"/>
-        </div>
-        <div class="x">
-          <div class="circle"></div>
-          <div class="line-container">
-            <hr class="line-x" style="width:100px;"/>
-            <div class="time">2019-xx-xx</div>
-          </div>
-          <div class="content">xxxxxx</div>
-          <button class="btn">删除</button>
-        </div>
+      <div class="block">
+        <el-timeline>
+          <el-timeline-item v-for="(msg,i) of msgs" :key="i" :timestamp="msg.time" placement="top" type="primary">
+            <el-card>
+              <h4>{{msg.content}}</h4>
+              <p>{{msg.author}} 提交于 {{msg.time}}</p>
+            </el-card>
+          </el-timeline-item>
+        </el-timeline>
       </div>
     </div>
     <fieldset class="messages">
@@ -53,6 +48,18 @@ export default {
     return {
       imgs:[
         img,img,img,img
+      ],
+      msgs:[
+        {
+          content:"发帖内容",
+          author:"作者",
+          time:"2018/4/2 20:46",
+        },
+        {
+          content:"发帖内容",
+          author:"作者",
+          time:"2018/4/2 20:46",
+        },
       ]
     }
   },
@@ -102,42 +109,7 @@ export default {
     width: 600px;height: 300px;
     border: 1px solid #000;
     padding: 20px;
-  }
-  .timeline{
-    position: relative;
-  }
-  .circle{
-    box-sizing: border-box;
-    width: 20px;height: 20px;
-    border: 2px solid #000;
-    border-radius: 50%;
-  }
-  .y{
-    width: 20px;
-    display: flex;
-    flex-flow: column;
-    align-items: center;
-  }
-  .x{
-    position: absolute;
-    top: 0;left: 0;
-    height: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  .line-x,.line-y{
-    box-sizing: border-box;
-    border: 2px solid #000;
-    width: 0;height: 20px;
-    margin: 0;
-  }
-  .line-container{
-    display: flex;
-    justify-content: center;
-  }
-  .line-x{
-    width: 20px;height: 0;
+    overflow-y: scroll;
   }
   .time{
     position: absolute;

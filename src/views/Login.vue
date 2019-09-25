@@ -19,7 +19,7 @@
                 <div>
                     <el-input class="put3"  placeholder="手机号/邮箱/用户名" v-model="input3"  clearable>  </el-input><br>
                     <el-input  class="put4" placeholder="请输入密码" v-model="input4" show-password>  </el-input><br>
-                    <el-button class="big"  type="primary">登陆</el-button><br>
+                    <el-button class="big"  type="primary" @click="login">登陆</el-button><br>
                 </div>
                  <el-checkbox v-model="checked"  class="checkbox">下次自动登录</el-checkbox>
                  <el-link :underline="false" class="forget" >忘记密码?</el-link>
@@ -47,6 +47,43 @@
     methods: {
       handleClick(tab, event) {
         console.log(tab, event);
+      },
+      valid(){
+        var uname=this.input3,
+            upwd=this.input4
+        var ureg=/^\w{3,12}$/,
+            phreg=/^\d{11}$/,
+            ereg=/^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/,
+            preg=/^\w{3,12}$/
+        var targets=[
+              [uname,"用户名",[ureg,phreg,ereg],"用户名由<strong>3-12位字母、数字、_</strong>组成"],
+              [upwd,"密码",[preg],"密码由<strong>3-12位字母、数字、_</strong>组成"],
+            ]
+        
+        outer:
+        for(let target of targets){
+          if(!target[0]){
+            this.$message(`${target[1]}不能为空`)
+            return
+          }
+          for(let reg of target[2]){
+            if (!reg.test(target[0])) {
+              continue
+            }else continue outer
+          }
+          // console.log(1)
+          // this.$message(`${target[1]}格式错误`)
+          this.$alert(target[3],`${target[1]}格式错误`, {
+          dangerouslyUseHTMLString: true
+        })
+          return
+        }
+        return true
+      },
+      login(){
+        if(this.valid()){
+          this.$message(`登录成功`)
+        }
       }
     }
   };

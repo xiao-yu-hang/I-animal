@@ -7,6 +7,8 @@ import Registe from './views/Registe.vue'
 import forum from './views/forum.vue'
 import Tourist from './views/Tourist.vue'
 import note from './views/note.vue'
+import Personal from './views/Personal.vue'
+import Cart from './views/Cart.vue'
 Vue.use(Router)
 export default new Router({
     routes: [
@@ -15,6 +17,8 @@ export default new Router({
         { path: '/Login', component: Login },
         { path:'/note',component: note},
         { path: "/forum", component: forum },
+        { path: '/Personal', component: Personal },
+        { path: '/Cart', component: Cart },
         { path: "/*", component: NotFound }
         
     ]

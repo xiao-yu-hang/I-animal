@@ -16,9 +16,9 @@ router.post("/reg",(req,res)=>{
   var sql="INSERT INTO ianimal_user(userid,userName,userPassword,userSex,userEmail,userBirth,userImg,userPhone,userRegTime,userAddr) VALUES(null,?,?,?,?,?,null,?,?,null)";
   query(sql,[userName,userPassword,userSex,userEmail,userBirth,userPhone,userRegTime]).then(result=>{
     if(result.affectedRows>0)
-    res.send("1");
+    res.send({code:200,msg:"注册成功"});
     else 
-    res.send("0");
+    res.send({code:201,msg:"注册失败"});
   })
 })
 
@@ -31,13 +31,13 @@ router.get("/login",(req,res)=>{
   query(sql,[userName,userPassword]).then(
     result=>{
       if(result.length>0){
-        res.send("1");
+        res.send({code:200,msg:"登陆成功"});
         console.log(result);
         var id=result[0].userid;
         req.session.userid=id;
         console.log(req.session.userid);
       }else{
-        res.send("0");
+        res.send({code:201,msg:"用户名或密码错误"});
       }
     }
   )

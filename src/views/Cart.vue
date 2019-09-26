@@ -75,6 +75,14 @@ export default {
     };
   },
   methods: {
+    load(){
+      // http://127.0.0.1:5050/goods/list
+      var url='goods/list'
+      this.axios.get(url).then((res) => {
+        console.log(res.data);
+        var data=res.data
+      })
+    },
     checkAll(value) {
       for (var good of this.goods) {
         good.checked = value;
@@ -129,7 +137,10 @@ export default {
       }
       return total;
     }
-  }
+  },
+  mounted() {
+    this.load()
+  },
 };
 </script>
 <style scoped>

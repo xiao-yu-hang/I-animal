@@ -1,8 +1,9 @@
 <template>
  <div class="regl">
      <div class="floor">
-        <img src="../../public/img/cart.png"  alt="">欢迎注册
-         <hr>
+        <img src="../../public/img/cart.png"  alt="">
+        <span>欢迎注册</span>
+        <hr>
      </div>
     <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
       <div class="content">
@@ -21,7 +22,20 @@
           <el-form-item label="确认密码" prop="checkPass">
             <el-input type="password" v-model="ruleForm.checkPass" autocomplete="off"></el-input>
           </el-form-item>
-          <el-form-item>
+          <div class="block">
+            <span class="demonstration">出生日期</span>
+            <el-date-picker
+              v-model="value1"
+              type="date"
+              placeholder="选择日期">
+            </el-date-picker>
+          </div>
+          <div class="sex" style="width:400px;">
+            <span>性别</span>
+            <el-radio v-model="radio" label="1">男</el-radio>
+            <el-radio v-model="radio" label="2">女</el-radio> 
+          </div>
+          <el-form-item style="margin-top:20px">
             <el-button type="primary" @click="submitForm('ruleForm')">提交</el-button>
             <el-button @click="resetForm('ruleForm')">重置</el-button>
           </el-form-item>
@@ -90,8 +104,11 @@
           mail:'',
           uname:'',
           pass: '',
-          checkPass: ''
+          checkPass: '',
+          
         },
+        value1:"",
+        radio:"1",
         rules: {
          phone: [
               { validator: validatephone, trigger: 'blur' }
@@ -130,18 +147,29 @@
 </script>
 <style scoped>
   .regl{
-    display: flex;
-    justify-content: center;
-    width: 575px;
+    margin:auto;
+    width:1000px;
     height: 590px;
-    background-image:url("../../public/img/bg5.jpeg");
-    background-repeat: no-repeat;
-    margin-left: 650px;
     padding-right: 80px; 
   }
+  .floor span{
+    font-family:Arial;
+    font-size:28px;
+  }
+  .floor hr{
+    margin-top:20px;
+  }
   .content{
-    margin-top:150px; 
+    display:flex;
+    flex-wrap:wrap;
+    margin-top:20px; 
     margin-right:96px; 
+  }
+  .el-input{
+    width:378px;
+  }
+  div.el-form-item{
+    width:478px;
   }
   .floor {
     text-align: left;
@@ -154,5 +182,42 @@
     height:66px;
     margin-right: 20px;
     margin-bottom:-18px; 
+  }
+  .demonstration{
+    display:block;
+    width:100px;height:40px;
+    float:left;
+    line-height:40px;
+    font-size:14px;
+    padding-right:12px;
+    text-align:right;
+    color:#606266;
+  }
+  .block{
+    width:478px;
+  }
+  .block .el-input{
+    width:378px;
+  }
+  .sex span{
+     display:block;
+    width:100px;height:40px;
+    float:left;
+    line-height:40px;
+    font-size:14px;
+    padding-right:12px;
+    text-align:right;
+    color:#606266;
+  }
+  .sex{
+    width:478px;
+    margin-top:20px;
+    line-height:40px;
+  }
+  .el-radio:last-child{
+    margin-right:170px;
+  }
+  .el-button{
+    width:100px;
   }
 </style>

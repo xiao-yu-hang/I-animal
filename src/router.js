@@ -8,6 +8,7 @@ import forum from './views/forum.vue'
 import Tourist from './views/Tourist.vue'
 import note from './views/note.vue'
 import Header from './components/Header.vue'
+import rightnav from './components/right-nav.vue'
 Vue.use(Router)
 export default new Router({
     routes: [
@@ -17,6 +18,7 @@ export default new Router({
         { path:'/note',component: note},
         { path: "/forum", component: forum },
         {path:'/Header',component: Header},
+        {path:'/rightnav',component: rightnav},
         { path: "/*", component: NotFound }
         
     ]
